@@ -34,9 +34,6 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
 
-        val key = ApiKeyExtractor.getKey()
-        Log.d("API_KEY", "---------> $key")
-
         splashScreen.setKeepOnScreenCondition { viewModel.uiState.value.shouldKeepSplashScreen() }
 
         setContent {
