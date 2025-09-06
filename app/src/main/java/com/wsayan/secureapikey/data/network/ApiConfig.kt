@@ -1,5 +1,6 @@
 package com.wsayan.secureapikey.data.network
 
+import com.wsayan.secureapikey.ApiKeyExtractor
 import com.wsayan.secureapikey.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -11,12 +12,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiConfig {
     private const val BASE_URL = BuildConfig.BASE_URL
 
-    /*val httpLogging = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
-
-    private val converter = GsonConverterFactory.create()*/
-
     suspend fun createOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
     ): OkHttpClient = withContext(Dispatchers.IO) {
@@ -24,7 +19,10 @@ object ApiConfig {
             .addInterceptor { chain ->
                 val requestBuilder = chain.request().newBuilder()
 
-
+                val authKey = ApiKeyExtractor.getKey()
+                if (authKey.isNotEmpty()) {
+                    requestBuilder.header("AuthKey", authKey)
+                }
 
                 chain.proceed(requestBuilder.build())
             }
