@@ -1,7 +1,6 @@
 package com.wsayan.secureapikey.data.network
 
 import com.wsayan.secureapikey.BuildConfig
-import com.wsayan.secureapikey.NativeAuthKey
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -14,20 +13,10 @@ object ApiConfig {
 
     suspend fun createOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
+        authKeyInterceptor: AuthKeyInterceptor
     ): OkHttpClient = withContext(Dispatchers.IO) {
         OkHttpClient.Builder()
-            .addInterceptor { chain ->
-                val requestBuilder = chain.request().newBuilder()
-
-                val authKey = NativeAuthKey.generateAuthKey()
-                println("----------> $authKey")
-
-                if (authKey.isNotEmpty()) {
-                    requestBuilder.header("AuthKey", authKey)
-                }
-
-                chain.proceed(requestBuilder.build())
-            }
+            .addInterceptor(authKeyInterceptor)
             .addInterceptor(loggingInterceptor)
             .build()
     }

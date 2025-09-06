@@ -2,6 +2,7 @@ package com.wsayan.secureapikey.data
 
 import com.wsayan.secureapikey.data.network.ApiConfig
 import com.wsayan.secureapikey.data.network.ApiService
+import com.wsayan.secureapikey.data.network.AuthKeyInterceptor
 import com.wsayan.secureapikey.data.repository.AnimeRepositoryImpl
 import com.wsayan.secureapikey.domain.repository.AnimeRepository
 import kotlinx.coroutines.Dispatchers
@@ -18,8 +19,12 @@ fun dataModule() = module {
     }
 
     single {
+        AuthKeyInterceptor()
+    }
+
+    single {
         runBlocking(Dispatchers.IO) {
-            ApiConfig.createOkHttpClient(get())
+            ApiConfig.createOkHttpClient(get(), get())
         }
     }
 

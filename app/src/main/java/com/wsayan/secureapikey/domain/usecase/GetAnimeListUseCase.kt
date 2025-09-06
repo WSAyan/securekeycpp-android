@@ -9,7 +9,6 @@ import kotlinx.coroutines.flow.Flow
 
 class GetAnimeListUseCase(private val animeRepository: AnimeRepository) {
     operator fun invoke(): Flow<ResourceState<List<AnimeItem>>> = resourceFlow {
-        delay(10000)
         val animeList = animeRepository.getAnimeList()
         ResourceState.Success(animeList)
     }
