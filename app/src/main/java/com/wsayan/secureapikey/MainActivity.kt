@@ -15,31 +15,32 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.wsayan.secureapikey.ui.component.AnimeList
 import com.wsayan.secureapikey.ui.component.ErrorContent
 import com.wsayan.secureapikey.ui.theme.SecureApiKeyTheme
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
     private val viewModel: MainActivityViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         val splashScreen = installSplashScreen()
+        super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
 
         val key = ApiKeyExtractor.getKey()
         Log.d("API_KEY", "---------> $key")
 
+        splashScreen.setKeepOnScreenCondition { viewModel.uiState.value.shouldKeepSplashScreen() }
+
         setContent {
             val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-            LaunchedEffect(uiState) {
-                splashScreen.setKeepOnScreenCondition {
-                    uiState.shouldKeepSplashScreen()
-                }
-            }
 
             SecureApiKeyTheme {
                 Scaffold(

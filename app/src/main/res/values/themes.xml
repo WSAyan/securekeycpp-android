@@ -1,5 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.SecureApiKey" parent="android:Theme.Material.Light.NoActionBar" />
+<style name="NightAdjusted.Theme.SecureApiKey" parent="android:Theme.Material.Light.NoActionBar" />
+
+<style name="Theme.SecureApiKey" parent="NightAdjusted.Theme.SecureApiKey">
+    <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
+</style>
+
+<style name="NightAdjusted.Theme.Splash" parent="Theme.SplashScreen">
+    <item name="android:windowLightStatusBar">true</item>
+</style>
+
+<style name="Theme.SecureApiKey.Splash" parent="NightAdjusted.Theme.Splash">
+    <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher_round</item>
+    <item name="windowSplashScreenIconBackgroundColor">#ffffff</item>
+    <item name="windowSplashScreenBackground">#ffffff</item>
+    <item name="windowSplashScreenAnimationDuration">1000</item>
+    <item name="postSplashScreenTheme">@style/Theme.SecureApiKey</item>
+</style>
 </resources>
