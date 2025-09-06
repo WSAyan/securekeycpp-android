@@ -7,12 +7,16 @@ import com.wsayan.secureapikey.domain.model.AnimeItem
 data class AnimeItemDto(
     @SerializedName("title") var title: String? = null,
     @SerializedName("url") var url: String? = null,
+    @SerializedName("synopsis") var synopsis: String? = null,
+    @SerializedName("score") var score: Double? = null,
     @SerializedName("images") var images: ImagesDto? = ImagesDto(),
 ) {
     fun toAnimeModel() = AnimeItem(
         title = this.title ?: throw AppException.DataIntegrity(),
         url = this.url ?: throw AppException.DataIntegrity(),
-        imageUrl = this.images?.jpg?.imageUrl ?: throw AppException.DataIntegrity()
+        synopsis = this.synopsis ?: "N/A",
+        score = this.score?.toString() ?: "N/A",
+        imageUrl = this.images?.jpg?.imageUrl ?: "N/A"
     )
 }
 

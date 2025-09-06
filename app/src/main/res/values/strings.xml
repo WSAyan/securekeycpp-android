@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SecureApiKey</string>
+    <string name="unable_to_load_image">Unable to load image</string>
 </resources>

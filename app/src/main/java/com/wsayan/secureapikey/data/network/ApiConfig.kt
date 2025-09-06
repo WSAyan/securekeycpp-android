@@ -1,5 +1,6 @@
 package com.wsayan.secureapikey.data.network
 
+import com.wsayan.secureapikey.BuildConfig
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okhttp3.OkHttpClient
@@ -10,11 +11,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiConfig {
     private const val BASE_URL = BuildConfig.BASE_URL
 
-    val httpLogging = HttpLoggingInterceptor().apply {
+    /*val httpLogging = HttpLoggingInterceptor().apply {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
-    private val converter = GsonConverterFactory.create()
+    private val converter = GsonConverterFactory.create()*/
 
     suspend fun createOkHttpClient(
         loggingInterceptor: HttpLoggingInterceptor,
@@ -31,7 +32,7 @@ object ApiConfig {
             .build()
     }
 
-    fun apiService(httpClient: OkHttpClient): ApiService =
+    fun apiService(httpClient: OkHttpClient, converter: GsonConverterFactory): ApiService =
         Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(converter)
