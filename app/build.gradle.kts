@@ -62,4 +62,21 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+    implementation(libs.androidx.navigation.compose)
+
+    implementation(libs.retrofit)
+    implementation(libs.okhttp)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.logging.interceptor)
+
+    implementation(libs.coil.compose)
+    implementation(libs.coil.compose.svg)
+    implementation(libs.coil.network.okhttp)
+
+    implementation(libs.koin.android)
+    implementation(libs.koin.androidx.compose)
+
+    implementation(libs.androidx.core.splashscreen)
+
 }
