@@ -1,3 +1,6 @@
+import java.text.SimpleDateFormat
+import java.util.Date
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -32,6 +35,11 @@ android {
                 "proguard-rules.pro"
             )
         }
+        setProperty(
+            "archivesBaseName", "SecureApiKey-v${defaultConfig.versionName}-${
+                SimpleDateFormat("ddMMyy_HHmm").format(Date())
+            }"
+        )
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
